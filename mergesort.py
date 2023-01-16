@@ -39,13 +39,27 @@ def mergeSort(list_to_sort_by_merge):
             i += 1
 
 
+import math
 import matplotlib.pyplot as plt
 
+def plot_list(numbers_list, title):
+    x = range(len(numbers_list))
+    plt.bar(x, numbers_list)
+    
+    tick_distance_raw = round(max(numbers_list) / 5)
+    tick_distance_magnitude = math.floor(math.log10(tick_distance_raw))
+    tick_distance_shift = math.pow(10, tick_distance_magnitude)
+    tick_distance = math.ceil(tick_distance_raw / tick_distance_shift) * tick_distance_shift
+    max_tick = math.ceil(max(numbers_list) / tick_distance) * tick_distance
+    plt.ylim(0, max_tick)
+    plt.yticks(ticks=[i * tick_distance for i in range(round(max_tick / tick_distance) + 1)])
+    
+    plt.title(title)
+    plt.xlabel("Listenindex")
+    plt.ylabel("Wert")
+    plt.show()
+
 my_list = [54, 26, 93, 17, 77, 31, 44, 55, 20]
-x = range(len(my_list))
-plt.plot(x, my_list)
-plt.show()
+plot_list(my_list, "Ungeordnete Beispielliste")
 mergeSort(my_list)
-x = range(len(my_list))
-plt.plot(x, my_list)
-plt.show()
+plot_list(my_list, "Geordnete Beispielliste")
